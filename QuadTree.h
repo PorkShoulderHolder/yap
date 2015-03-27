@@ -86,6 +86,7 @@ public:
 
 	Box* getBox(Box* root, double x, double y)
 	{
+		
 		if (x > root->x + root->width / 2 || x < root->x - root->width / 2
 			|| y > root->y + root->height / 2 || y < root->y - root->height / 2)
 		{

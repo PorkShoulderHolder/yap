@@ -40,7 +40,9 @@ public:
 	bool operator() (Box* a, Box* b)
 	{
 
-		//cout << a->featureNumber << "\n";
+		// currently very interesting behavior: prioritizes quads with 2 features and avoids quads with 0,1 features at all costs
+		// but we dont really understand why this works so well
+
 		double aDist = sqrt((a->x - beta[0])*(a->x - beta[0]) + (a->y - beta[1])*(a->y - beta[1]));
 		double bDist = sqrt((b->x - beta[0])*(b->x - beta[0]) + (b->y - beta[1])*(b->y - beta[1]));
 		double avgDist = (aDist + bDist) / 2;
@@ -55,30 +57,14 @@ public:
 		aFeatureDiff /= avgFeatureDiff;
 		bFeatureDiff /= avgFeatureDiff;
 
+		if (a->featureNumber <= 1) aFeatureDiff = 10000;
+		if (b->featureNumber <= 1) bFeatureDiff = 10000;
+
 		double weight = blend;
 		double aScore = weight * aDist + (1 - weight) * aFeatureDiff;
 		double bScore = weight * bDist + (1 - weight) * bFeatureDiff;
 
-		
 		return aScore > bScore;
-		
-		// if (a->featureNumber == 2) {
-		// 	//cout  << "A BOX feature2\n";
-		// 	return true;
-		// }
-		// else if (b->featureNumber == 2) { 
-		// 	//cout  << "B BOX feature2\n";
-		// 	return false;
-		// }
-
-		// else{
-			
-		// }
-/*
-		else
-			return a->featureNumber < b->featureNumber;*/
-
-	  
 	}
 };
 //END GROUP 2 ADD

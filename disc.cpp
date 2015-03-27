@@ -159,7 +159,10 @@ bool findPath(Box* a, Box* b, QuadTree* QT, int& ct)
 	{
 		Box* current = dijQ->extract();
 		current->visited = true;
-
+		
+		sleep(0.2f);
+		glutPostRedisplay();
+		renderScene();
 		// if current is MIXED, try expand it and push the children that is
 		// ACTUALLY neighbors of the source set (set containing alpha) into the dijQ again
 		if (current->status == Box::MIXED)
