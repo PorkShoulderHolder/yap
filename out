@@ -1,0 +1,18 @@
+before interactive, Qtype= 0
+inside run:  Qtype= 0
+input file name = inputs/input2.txt
+nPt=12
+nPolygons=3
+inside genEmpty:  Qtype= 0
+>>>>>>>>>>>>>>> > > > > > > >>>>>>>>>>>>>>>>>>
+>>
+>>     Time used: 7.071 ms
+>>
+>>     Path found !
+>>
+>>>>>>>>>>>>>>> > > > > > > >>>>>>>>>>>>>>>>>>
+Expanded 118 times
+total Free boxes: 165
+total Stuck boxes: 66
+total Mixed boxes smaller than epsilon: 10
+total Mixed boxes bigger than epsilon: 114

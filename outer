@@ -1,0 +1,19 @@
+inside run:  Qtype= 0
+input file name = inputs/input2.txt
+nPt=12
+nPolygons=3
+inside genEmpty:  Qtype= 0
+>>>>>>>>>>>>>>> > > > > > > >>>>>>>>>>>>>>>>>>
+>>
+>>     Time used: 11.344 ms
+>>
+>>     Path found !
+>>
+>>>>>>>>>>>>>>> > > > > > > >>>>>>>>>>>>>>>>>>
+Expanded 343 times
+total Free boxes: 416
+total Stuck boxes: 265
+total Mixed boxes smaller than epsilon: 32
+total Mixed boxes bigger than epsilon: 317
+Non Interactive Run of Disc Robot
+Path was Found!

@@ -1,0 +1,59 @@
+Box.cpp	(imports Box.h)
+Box.h (imports Wall.h and Corner.h)
+	Defines the Box and BoxIter classes.  Box is completely implemented in the header file.  BoxIter is implemented in the cpp file.
+
+	The Box class is the atomic component of our space and is used in most of the files, the exception being Corner, Wall, Timer.  It also acts as the node of the quad tree.  A box can have one of three status:  FREE, STUCK, or MIXED.  A box can be subdivided using the split method, afterwards the box becomes the parent of the four resulting boxes.  The box also contains 2 lists of applicable features.  One for courners and another for walls.  When created the box inherits its parents lists, which will include feature that are not applicable.  The method updateStatus winnows these lists based upon a defined predicate.  This predicate includes any features whose distance from center of the box is less then the (radius of robot) + (radius of box).  
+
+	The BoxIter class (used in Graph.h and QuadTree.h) is used to naviagate the structure the boxes are placed in.  When created a BoxIter is given a direction to denote the four corners of a box.
+
+CoreIo.h
+	NOT USED no .cpp provided.  The only include that refreences this is in disc.cpp and has been commented out.  Within disc.cpp the methods skip_comment_line and skip_backslash_new_line appear to have been copied from CoreIO.cpp.  These methods are convience functions for input files.
+
+Corner.cpp (imports Corner.h and Wall.h)
+Corner.h
+	Defines the Corner class (used in Box, Wall, and disc).  A corner is a feature of an obstacle that is created when two walls come together, it is just as intuitive as its name implies.  It is defined by an x,y corrdinate and has functions to determine it's distance from any given x,y.  In addition, it stores the Walls preWall and nextWall.  This Wall information allows it to determine whether or not the coner is convex, which is exposed via the isConvex method.
+
+Wall.cpp (imports Corner.h and Wall.h)
+Wall.h
+	Defines the Wall class (used in Box, Wall, and disc).  A wall is defined as the line that connects two corners.  There is a distance function the provides the distance from any given x,y.  In addition, a function isRight tprovides whether or not it is at a right angle - which is used in the Corner to class to determine whether or not a corner is convex.
+
+Timer.cpp (imports Timer.h)
+Timer.h (imports windows.h or sys/time.h depending on system )
+	Defines the Timer class (used in disc).  The timer is used to calculate the time the motion planning algorithm runs.  It can return the elapsed time in seconds, milliseconds, or microseconds.
+
+Graph.h (imports Box.h and QuadTree.h)
+	Defines classes distHeap (used for ASTAR) and Graph (unused), also contains the Compare classes for these algorithms.
+
+PriorityQueue.h (imoprts Box.h and Graph.h)
+	Defines a virtual class BoxQueue and contains multiple implementations of it, used in QuadTree.  These multiple implementations are the various prioityQueues that power the QuadTree.  Important to note is the GBFS (mislabled ASTAR) uses a a distHelp (implemented in Graph.h) as it implements Dijkstra's as opposed to a priority queue.  Important to note each of these queue's need a class that defines the operator that determines an object's relative priority in a queue.
+
+
+QuadTree.cpp (imports QuadTree.h)
+QuadTree.h (imports Box.h, UnionFind.h, PrioirtyQueue.h)
+	All implementation is in QuadTree.h the .cpp file is blank other then a single include statement.  Defines the QuadTree class.  Each QuadTree is powered by a PriorityQueue, which is set depending on which QType is passed in.  One method to highlight is unionAdjacent.  unionAdjacent is called whenever a FREE box is added to the QuadTree.  If this new box has any other FREE neighbors they are added to each other's paths.
+
+UnionFind.h (imports Box.h)
+	Defines classes Set (used in Box, UnionFind, QuadTree) and UnionFind (used in QuadTree).
+
+	The Set class (not to be confused with set from the the std which is also used in this program) is designed to be a data member of a box. the has three components.
+		pBox - the box itself
+		pParent - set of the parent box from Unionfind
+		rank - integer indicating xxx
+
+	The UnionFind class has 3 methods: Union, Find, pathCompress. The first two are public.  pathCompress is a recurrisve function which returns the boxes parent set.
+
+	As UnionFind does not save any data this could all be implemeted in functions and does not requre a class.
+
+fileProcessor.cpp
+	Contains code for a method that is called by disc.  It takes an input file and preprocesses it into "output-tmp.txt".  This new file is read in and parsed in disc.cpp.
+
+disc.cpp
+	Main program file.  The main function creates two windows "Motion Planning" and "control".  The control window passes in arguments and the Motion Planning window contains a visual display of the robot, enviroment and path.  The program currently must be run in interactive mode.  The QType determines which algorithim is run.  Important to note, the only measurement output is the time used to find the path.
+
+	The work horse is the run() method.  Each QType has it's own code block, but follow a similar pattern.
+		STEP 1:  Find the smallest box containing the starting point that is FREE.
+		STEP 2:  Find the smallest box containing the goal that is FREE.
+		STEP 3:  Check if there is a path.  This step differs by QType.
+
+
+
