@@ -26,4 +26,5 @@ public:
 
 	bool isRight(double x, double y);
 
+	Corner* closest(double x, double y);
 };

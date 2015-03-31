@@ -3,6 +3,8 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include <cstdlib>
+#include <cstdio>
 #include <assert.h>
 #include <math.h>
 #include "Wall.h"
@@ -76,6 +78,7 @@ public:
 	list<Corner*> corners;
 	list<Wall*> walls;
 
+
 	//added by Group 2
 	list<Corner*> vorCorners;
 	list<Wall*> vorWalls;
@@ -102,6 +105,8 @@ public:
 	}
 
 	//added by Group 2
+	
+	void getClosestPoints():
 	void setClearance() {
 		clearance = 100000;
 		double tempClearance; 
@@ -162,18 +167,20 @@ public:
 			bool cornerExist = false;
 			for (list<Corner*>::iterator iter = vorCorners.begin(); iter != vorCorners.end(); ) {
 				Corner* c = *iter;
-				if (c->x == w->src->x && c->y == w->src->y)
+				if (c->x == w->src->x && c->y == w->src->y){
+					vorWalls.erase(w);
 					cornerExist = true;
-				if (c->x == w->dst->x && c->y == w->dst->y)
+				}
+				else if (c->x == w->dst->x && c->y == w->dst->y){
+					vorWalls.erase(w);
 					cornerExist = true;
+				}	
 				++iter;
 			}
 
 			if (cornerExist == false)
 				featureNumber++;
-
 			++it;
-			
 		} 
 	}
 
@@ -186,6 +193,7 @@ public:
 
 		updateVorFeatures();
 		setFeatureNumber();
+		printf("%i\n", featureNumber);
 		double outerDomain = r0 + rB; //ORIG
 		double innerDomain = r0 > rB ? r0 - rB : 0;
 		for (list<Corner*>::iterator it = corners.begin(); it != corners.end(); )

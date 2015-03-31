@@ -14,6 +14,10 @@ using namespace std;
 extern double beta[2];
 extern double blend;
 
+bool distCompare(Corner* a, Corner* b){
+
+}
+
 class PQCmp
 {
 public:
@@ -36,12 +40,43 @@ public:
 //ADDED FOR GROUP 2
 class PQCmpGroup2
 {
+
 public:
+
 	bool operator() (Box* a, Box* b)
 	{
 
 		// currently very interesting behavior: prioritizes quads with 2 features and avoids quads with 0,1 features at all costs
 		// but we dont really understand why this works so well
+
+		float minDist = 10000000;
+		float secondMinDist = 10000000;
+		list<Corner*> aSortedWalls;
+
+		for (list<Wall*>::iterator it = a->vorWalls.begin(); it != a->vorWalls.end(); )
+		{	
+			Wall* wall = *it;
+			float d = wall.distance(a->x, a->y);
+			if(d < minDist){
+				minDist = d;
+				aSortedWalls.push(wall);
+			}
+			else if(d < secondMinDist){
+				aSortedWalls.insert(1, wall);
+			}
+			else{
+				aSortedWalls.push_back(wall);
+			}
+		}
+
+		
+
+		Wall *aClosestWall = aSortedWalls[0];
+		Wall *aSecondClosestWall = aSortedWalls[1];
+
+
+
+
 
 		double aDist = sqrt((a->x - beta[0])*(a->x - beta[0]) + (a->y - beta[1])*(a->y - beta[1]));
 		double bDist = sqrt((b->x - beta[0])*(b->x - beta[0]) + (b->y - beta[1])*(b->y - beta[1]));

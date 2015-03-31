@@ -86,7 +86,8 @@ QuadTree* QT;
 	Box* boxB;				// goal box (containing beta)
 	double boxWidth = 512;			// Initial box width
 	double boxHeight = 512;			// Initial box height
-	double R0 = 30;				// Robot radius 
+	double R0 = 30;	
+	double playbackSpeed = 0.0;				// Robot radius 
 	int windowPosX = 400;			// X Position of Window
 	int windowPosY = 200;			// Y Position of Window
 	string fileName("input2.txt"); 		// Input file name
@@ -115,6 +116,7 @@ QuadTree* QT;
 	GLUI_RadioGroup* radioQType;
 	GLUI_RadioGroup* radioDrawOption;
 	GLUI_EditText* editInput;
+	GLUI_EditText* editSpeed;
 	GLUI_EditText* editDir;
 	GLUI_EditText* editRadius;
 	GLUI_EditText* editEpsilon;
@@ -160,7 +162,7 @@ bool findPath(Box* a, Box* b, QuadTree* QT, int& ct)
 		Box* current = dijQ->extract();
 		current->visited = true;
 		
-		sleep(0.2f);
+		sleep(playbackSpeed);
 		glutPostRedisplay();
 		renderScene();
 		// if current is MIXED, try expand it and push the children that is
@@ -278,7 +280,8 @@ int main(int argc, char* argv[])
 	if (argc > 15) inputDir  = argv[15];		// path for input files
 	if (argc > 16) deltaX  = atof(argv[16]);	// x-translation of input file
 	if (argc > 17) deltaY  = atof(argv[17]);	// y-translation of input file
-	if (argc > 18) scale  = atof(argv[18]);		// scaling of input file
+	if (argc > 18) scale  = atof(argv[18]);
+	if (argc > 18) playbackSpeed = atof(argv[19]);			// scaling of input file
 
 	if (interactive > 0) {	// non-interactive
 		run();
@@ -305,6 +308,8 @@ int main(int argc, char* argv[])
 		editRadius->set_float_val(R0);
 		editEpsilon = glui->add_edittext( "Epsilon:", GLUI_EDITTEXT_FLOAT );
 		editEpsilon->set_float_val(epsilon);
+		editSpeed = glui->add_edittext( "Step Time :", GLUI_EDITTEXT_FLOAT );
+		editSpeed->set_float_val(playbackSpeed);
 
 		editAlphaX = glui->add_edittext( "alpha.x:", GLUI_EDITTEXT_FLOAT );
 		editAlphaX->set_float_val(alpha[0]);
@@ -387,6 +392,7 @@ void run()
 		fileName = editInput->get_text();
 		inputDir = editDir->get_text();
 		R0 = editRadius->get_float_val();
+		playbackSpeed = editSpeed->get_float_val();
 		epsilon = editEpsilon->get_float_val();
 		alpha[0] = editAlphaX->get_float_val();
 		alpha[1] = editAlphaY->get_float_val();
