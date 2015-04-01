@@ -51,28 +51,15 @@ public:
 
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
-		list<Corner*> aSortedWalls;
-
-		for (list<Wall*>::iterator it = a->vorWalls.begin(); it != a->vorWalls.end(); )
-		{	
-			Wall* wall = *it;
-			float d = wall.distance(a->x, a->y);
-			if(d < minDist){
-				minDist = d;
-				aSortedWalls.push(wall);
-			}
-			else if(d < secondMinDist){
-				aSortedWalls.insert(1, wall);
-			}
-			else{
-				aSortedWalls.push_back(wall);
-			}
-		}
-
 		
+		list<Wall*> aClosestWalls = a.getClosestWalls();
+		list<Wall*> bClosestWalls = b.getClosestWalls();;
+		list<Corner*> aClosestCorners = a.getClosestCorners();
+		list<Corner*> bClosestCorners = b.getClosestCorners();;
 
-		Wall *aClosestWall = aSortedWalls[0];
-		Wall *aSecondClosestWall = aSortedWalls[1];
+	
+		Wall *bClosestWall = bSortedWalls[0];
+		Wall *bSecondClosestWall = bSortedWalls[1];
 
 
 

@@ -183,7 +183,43 @@ public:
 			++it;
 		} 
 	}
+	list<*Wall> getClosestWalls(){
+		float minDist = 10000000;
+		float secondMinDist = 10000000;
+		list<Wall*> sortedWalls; 
+		for (list<Wall*>::iterator it = vorWalls.begin(); it != vorWalls.end(); )
+		{	
+			Wall* wall = *it;
+			float d = wall.distance(x, y);
+			if(d < minDist){
+				minDist = d;
+				sortedWalls.push(wall);
+			}
+			else if(d < secondMinDist){
+				sortedWalls.push_back(wall);
+			}
+		}
+		return sortedWalls;
+	};
 
+	list<*Corner> getClosestCorners(){
+		float minDist = 10000000;
+		float secondMinDist = 10000000;
+		list<Corner*> sortedCorners; 
+		for (list<Corner*>::iterator it = vorCorners.begin(); it != vorCorners.end(); )
+		{	
+			Corner* corner = *it;
+			float d = corner.distance(a->x, a->y);
+			if(d < minDist){
+				minDist = d;
+				sortedCorners.push(corner);
+			}
+			else if(d < secondMinDist){
+				sortedCorners.push_back(corner);
+			}
+		}
+		return sortedCorners;
+	};
 	void updateStatus()
 	{
 		if (status != UNKNOWN)
