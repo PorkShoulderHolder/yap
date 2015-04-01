@@ -183,7 +183,7 @@ public:
 			++it;
 		} 
 	}
-	list<*Wall> getClosestWalls(){
+	list<Wall> getClosestWalls(){
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
 		list<Wall*> sortedWalls; 

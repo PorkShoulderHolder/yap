@@ -43,7 +43,7 @@ class PQCmpGroup2
 
 public:
 
-	bool operator() (Box* a, Box* b)
+	bool operator() (const Box* a, const Box* b)
 	{
 
 		// currently very interesting behavior: prioritizes quads with 2 features and avoids quads with 0,1 features at all costs
@@ -57,10 +57,8 @@ public:
 		list<Corner*> aClosestCorners = a.getClosestCorners();
 		list<Corner*> bClosestCorners = b.getClosestCorners();;
 
-	
-		Wall *bClosestWall = bSortedWalls[0];
-		Wall *bSecondClosestWall = bSortedWalls[1];
 
+		//continue here~!!!!!
 
 
 
