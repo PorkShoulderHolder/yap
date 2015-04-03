@@ -58,30 +58,43 @@ public:
 
 
 
-		double aDist = sqrt((a->x - beta[0])*(a->x - beta[0]) + (a->y - beta[1])*(a->y - beta[1]));
-		double bDist = sqrt((b->x - beta[0])*(b->x - beta[0]) + (b->y - beta[1])*(b->y - beta[1]));
+		double aDist = (a->x - beta[0])*(a->x - beta[0]) + (a->y - beta[1])*(a->y - beta[1]);
+		double bDist = (b->x - beta[0])*(b->x - beta[0]) + (b->y - beta[1])*(b->y - beta[1]);
 		double avgDist = (aDist + bDist) / 2;
 
-		aDist /= avgDist;
-		bDist /= avgDist;
 
 		float aFeatureDiff = a->featureNumber;
 		float bFeatureDiff = b->featureNumber;
 
-		float avgFeatureDiff = (aFeatureDiff + bFeatureDiff)/2;
-
-		aFeatureDiff /= avgFeatureDiff;
-		bFeatureDiff /= avgFeatureDiff;
-
-		// if (a->featureNumber <= 1) aFeatureDiff = 10000;
-		// if (b->featureNumber <= 1) bFeatureDiff = 10000;
-
-		
 		double weight = blend;
-		double aScore = weight * aDist + (1 - weight) * aFeatureDiff;
-		double bScore = weight * bDist + (1 - weight) * bFeatureDiff;
+		double aScore =  (1 - weight) * aFeatureDiff - weight * aDist;
+		double bScore =  (1 - weight) * bFeatureDiff - weight * bDist;
 
-		return aScore < bScore;
+		// if(aFeatureDiff == bFeatureDiff){
+		// 	return aDist > bDist;
+		// }
+		// else if(aFeatureDiff == 2){
+		// 	return false;
+		// }
+		// else if(bFeatureDiff == 2){
+		// 	return true;
+		// }
+		// else if(aFeatureDiff < 2 && bFeatureDiff < 2){
+		// 	return aDist > bDist;
+		// }
+		// return aScore < bScore;
+		if(aFeatureDiff == 2){
+			return true;
+		}
+		else if(bFeatureDiff == 2){
+			return false;
+		}
+		else if(rand() % 2){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 };
 //END GROUP 2 ADD

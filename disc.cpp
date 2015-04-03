@@ -79,17 +79,17 @@ QuadTree* QT;
 //
 	double blend = 0.0;
 	double alpha[2] = {10, 360};		// start configuration
-	double beta[2] = {500, 20};		// goal configuration
+	double beta[2] = {320, 320};		// goal configuration
 	double epsilon = 1;			// resolution parameter
 	Box* boxA;				// start box (containing alpha)
 	Box* boxB;				// goal box (containing beta)
 	double boxWidth = 512;			// Initial box width
 	double boxHeight = 512;			// Initial box height
-	double R0 = 30;	
+	double R0 = 10;	
 	double playbackSpeed = 0.0;				// Robot radius 
 	int windowPosX = 400;			// X Position of Window
 	int windowPosY = 200;			// Y Position of Window
-	string fileName("input2.txt"); 		// Input file name
+	string fileName("bugtrap.txt"); 		// Input file name
 	string inputDir("inputs"); 		// Path for input files 
 	int QType = 0;				// The Priority Queue can be
 						//    sequential (0) or random (1)
