@@ -49,8 +49,9 @@ public:
 		float secondMinDist = 10000000;
 		
 		
-		printf("%s\n", a->closestCorners);
-		
+		// a->cleanFeatures;
+		// b->cleanFeatures;
+
 
 		//continue here~!!!!!
 		
@@ -64,21 +65,22 @@ public:
 		aDist /= avgDist;
 		bDist /= avgDist;
 
-		float aFeatureDiff = abs(2 - a->featureNumber);
-		float bFeatureDiff = abs(2 - b->featureNumber);
+		float aFeatureDiff = a->featureNumber;
+		float bFeatureDiff = b->featureNumber;
+		
 		float avgFeatureDiff = (aFeatureDiff + bFeatureDiff)/2;
 
 		aFeatureDiff /= avgFeatureDiff;
 		bFeatureDiff /= avgFeatureDiff;
 
-		if (a->featureNumber <= 1) aFeatureDiff = 10000;
-		if (b->featureNumber <= 1) bFeatureDiff = 10000;
+		// if (a->featureNumber <= 1) aFeatureDiff = 10000;
+		// if (b->featureNumber <= 1) bFeatureDiff = 10000;
 
 		double weight = blend;
 		double aScore = weight * aDist + (1 - weight) * aFeatureDiff;
 		double bScore = weight * bDist + (1 - weight) * bFeatureDiff;
 
-		return aScore > bScore;
+		return aScore < bScore;
 	}
 };
 //END GROUP 2 ADD

@@ -70,9 +70,6 @@ public:
 			break;
 		//ADDED BY GROUP 2
 		case 3:
-			PQ = new vorQueue();
-			break;
-		case 4:
 			PQ = new vorDijkstraQueue();
 			break;
 		//END GROUP 2 ADD

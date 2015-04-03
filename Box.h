@@ -14,7 +14,7 @@
 
 class Set;
 class Box;
-
+extern double playbackSpeed;
 using namespace std;
 
 class BoxIter
@@ -107,7 +107,7 @@ public:
 		priority = Box::counter; 
 	}
 
-	
+
 	//added by Group 2
 	
 	void setClearance() {
@@ -185,6 +185,50 @@ public:
 			++it;
 		} 
 	}
+	void cleanFeatures(){
+		
+		if(featureNumber > 1){
+
+			// remove wall features that we should be ignoring (starting at the second closest)
+			 list<Wall*>::iterator it = closestWalls.begin();
+			 ++it;
+			 Wall* closestWall = closestWalls.front();
+			 while(it != closestWalls.end()){
+ 				Wall* w = *it;
+
+ 				Corner* scndClosestPt = w->closest(x,y);
+ 				
+
+ 				if(closestWall->isRight(x, y) != closestWall->isRight(scndClosestPt->x, scndClosestPt->y)){
+					it = closestWalls.erase(it);
+				}
+
+				++it;
+			 }
+			 
+
+			// remove corner features that we should be ignoring (look at each of them)
+			
+			list<Corner*>::iterator iter = closestCorners.begin();
+			Corner* closestCorner = closestCorners.front();
+			while(iter != closestCorners.end()){
+				Corner* c = *iter;
+				
+				if(closestWall->distance(x,y) < c->distance(x,y)){
+					if(closestWall->isRight(c->x,c->y) != closestWall->isRight(x, y)){
+					 	iter = closestCorners.erase(iter);
+					}
+				}
+				++iter;
+			}	
+		}
+		// update feature count
+		// TODO consolidate with other feature count code
+
+		featureNumber = closestCorners.size() + closestWalls.size();
+	}
+
+
 	void updateClosestWalls(){
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
@@ -234,8 +278,12 @@ public:
 		updateClosestCorners();
 		updateClosestWalls();
 		setFeatureNumber();
+		cleanFeatures();
+		
 	
-		printf("%i\n", featureNumber);
+		if(playbackSpeed > 0){
+			printf("%i\n", featureNumber);
+		}
 		double outerDomain = r0 + rB; //ORIG
 		double innerDomain = r0 > rB ? r0 - rB : 0;
 		for (list<Corner*>::iterator it = corners.begin(); it != corners.end(); )

@@ -44,9 +44,8 @@ Corner* Wall::closest(double x, double y)
 	u = u < 0 ? 0 : u;
 	u = u > 1 ? 1 : u;
 
-	Corner *corner;
-	corner->x = u*x2 + (1-u)*x1;
-	corner->y = u*y2 + (1-u)*y1;
+	Corner* corner = new Corner(u*x2 + (1-u)*x1,u*y2 + (1-u)*y1);
+
 	return corner;
 }
 

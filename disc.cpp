@@ -77,7 +77,7 @@ QuadTree* QT;
 
 // GLOBAL INPUT Parameters ========================================
 //
-	double blend = 0.4;
+	double blend = 0.0;
 	double alpha[2] = {10, 360};		// start configuration
 	double beta[2] = {500, 20};		// goal configuration
 	double epsilon = 1;			// resolution parameter
@@ -93,7 +93,7 @@ QuadTree* QT;
 	string inputDir("inputs"); 		// Path for input files 
 	int QType = 0;				// The Priority Queue can be
 						//    sequential (0) or random (1)
-		int interactive = 0;			// Run interactively?
+	int interactive = 0;			// Run interactively?
 						//    Yes (0) or No (1)
 	int seed = 111;				// seed for random number generator
 						// (Could also be used for BFS, etc)
@@ -146,7 +146,7 @@ bool findPath(Box* a, Box* b, QuadTree* QT, int& ct)
 	a->dist2Source = 0;
 
 	BoxQueue *dijQ;
-	if (QType == 4)
+	if (QType == 3)
 	{
 		dijQ = new vorDijkstraQueue();
 	}
@@ -160,10 +160,12 @@ bool findPath(Box* a, Box* b, QuadTree* QT, int& ct)
 	{
 		Box* current = dijQ->extract();
 		current->visited = true;
+		if(playbackSpeed > 0.0){
+			sleep(playbackSpeed);
+			glutPostRedisplay();
+			renderScene();
+		}
 		
-		sleep(playbackSpeed);
-		glutPostRedisplay();
-		renderScene();
 		// if current is MIXED, try expand it and push the children that is
 		// ACTUALLY neighbors of the source set (set containing alpha) into the dijQ again
 		if (current->status == Box::MIXED)
@@ -280,7 +282,8 @@ int main(int argc, char* argv[])
 	if (argc > 16) deltaX  = atof(argv[16]);	// x-translation of input file
 	if (argc > 17) deltaY  = atof(argv[17]);	// y-translation of input file
 	if (argc > 18) scale  = atof(argv[18]);
-	if (argc > 18) playbackSpeed = atof(argv[19]);			// scaling of input file
+	if (argc > 19) playbackSpeed = atof(argv[19]);
+	if (argc > 20) blend = atof(argv[20]);		// scaling of input file
 
 	if (interactive > 0) {	// non-interactive
 		run();
@@ -334,7 +337,6 @@ int main(int argc, char* argv[])
 		glui->add_radiobutton_to_group(radioQType, "BFS");
 		glui->add_radiobutton_to_group(radioQType, "A-star");
 		glui->add_radiobutton_to_group(radioQType, "Group2");
-		glui->add_radiobutton_to_group(radioQType, "Group2Dijk");
 		editBlend = glui->add_edittext( "Blend:", GLUI_EDITTEXT_FLOAT );
 		editBlend->set_float_val(blend);
 		glui->add_separator();
@@ -349,16 +351,12 @@ int main(int argc, char* argv[])
 
 		glui->set_main_gfx_window( windowID );
 
-	//cout<<"before run\n";
 		// PERFORM THE INITIAL RUN OF THE ALGORITHM
 		//==========================================
-
-		run(); 	// make it do something interesting from the start!!!
-
+		// make it do something interesting from the start!!!
+		run(); 
 		// SHOULD WE STOP or GO INTERACTIVE?
 		//==========================================
-	//cout<<"after run\n";
-
 }
 	if (interactive == 0) {	// non-interactive
 		glutMainLoop();
@@ -479,51 +477,8 @@ void run()
 
 		noPath = !findPath(boxA, boxB, QT, ct);
 	}
-	// ADDED BY GROUP 2
-	else if(QType == 3)
-	{
-		
-		boxA = QT->getBox(alpha[0], alpha[1]);
-		while (boxA && !boxA->isFree())
-		{
-			
-			if (!QT->expand(boxA))
-			{
-				noPath = true; // Confusing use of "noPath"
-				break;
-			}
-
-			++ct;
-			boxA = QT->getBox(boxA, alpha[0], alpha[1]);
-		}
-
-		boxB = QT->getBox(beta[0], beta[1]);
-		while (!noPath && boxB && !boxB->isFree())
-		{
-			
-			if (!QT->expand(boxB))
-			{
-				noPath = true;
-				break;
-			}
-			++ct;
-			boxB = QT->getBox(boxB, beta[0], beta[1]);
-		}
-		
-		while(!noPath && !QT->isConnect(boxA, boxB))
-		{
-
-			if (!QT->expand()) // should ct be passed to expand?
-			{
-				noPath = true;
-			}
-			++ct;
-		}
-	}
-	//END GROUP 2 ADD
-
 	//GROUP 2 ADD
-	else if(QType == 4)
+	else if(QType == 3)
 	{
 		boxA = QT->getBox(alpha[0], alpha[1]);
 		while (boxA && !boxA->isFree())
