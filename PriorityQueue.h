@@ -70,7 +70,7 @@ public:
 		double aScore =  (1 - weight) * aFeatureDiff - weight * aDist;
 		double bScore =  (1 - weight) * bFeatureDiff - weight * bDist;
 
-		// if(aFeatureDiff == bFeatureDiff){
+/*		// if(aFeatureDiff == bFeatureDiff){
 		// 	return aDist > bDist;
 		// }
 		// else if(aFeatureDiff == 2){
@@ -94,7 +94,22 @@ public:
 		}
 		else{
 			return false;
+		}*/
+		if (aFeatureDiff < 2) aFeatureDiff = 10000+aFeatureDiff;
+		if (bFeatureDiff < 2) bFeatureDiff = 10000+bFeatureDiff;
+
+		if (aFeatureDiff == bFeatureDiff) {
+			return aDist > bDist;
 		}
+		else if (aFeatureDiff == 2){
+			return false;
+		}
+		else if (bFeatureDiff == 2) {
+			return true;
+		}
+		else
+			return aFeatureDiff > bFeatureDiff;
+
 	}
 };
 //END GROUP 2 ADD

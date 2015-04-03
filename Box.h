@@ -113,7 +113,7 @@ public:
 	void setClearance() {
 		clearance = 100000;
 		double tempClearance; 
-		for (list<Corner*>::iterator it = corners.begin(); it != corners.end(); )
+		for (list<Corner*>::iterator it = vorCorners.begin(); it != vorCorners.end(); )
 		{
 			Corner* c = *it;
 			tempClearance = c->distance(this->x, this->y);
@@ -122,7 +122,7 @@ public:
 			++it;
 		}
 
-		for (list<Wall*>::iterator it = walls.begin(); it != walls.end(); )
+		for (list<Wall*>::iterator it = vorWalls.begin(); it != vorWalls.end(); )
 		{
 			Wall* w = *it;
 			tempClearance = w->distance(this->x, this->y);
@@ -279,10 +279,19 @@ public:
 		updateClosestWalls();
 		setFeatureNumber();
 		cleanFeatures();
+
+		// int tempFeatureNum = vorCorners.size() + vorWalls.size();
+		// if (tempFeatureNum == 0)
+		// 	printf("ZERO LOCATED, PANIC!");
+		// if (tempFeatureNum == 1) 
+		// 	printf("ONE LOCATED, LESS PANIC, MAYBE MORE?");
 		
 	
 		if(playbackSpeed > 0){
-			printf("%i\n", featureNumber);
+			//printf("%i\n", featureNumber);
+			int tempFeatureNum = vorCorners.size() + vorWalls.size();
+			if (tempFeatureNum == 0)
+				printf("ZERO LOCATED, PANIC!");
 		}
 		double outerDomain = r0 + rB; //ORIG
 		double innerDomain = r0 > rB ? r0 - rB : 0;
