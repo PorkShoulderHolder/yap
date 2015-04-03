@@ -107,6 +107,7 @@ public:
 		priority = Box::counter; 
 	}
 
+	
 	//added by Group 2
 	
 	void setClearance() {
@@ -162,7 +163,6 @@ public:
 		//sets the number of unique Voroni features
 		featureNumber = vorCorners.size();
 		//featureNumber = featureNumber + vorWalls.size();
-		printf("%s\n","fn1" );
 		for (list<Wall*>::iterator it = vorWalls.begin(); it != vorWalls.end(); )
 		{
 			Wall* w = *it;
@@ -170,11 +170,11 @@ public:
 			for (list<Corner*>::iterator iter = vorCorners.begin(); iter != vorCorners.end(); ) {
 				Corner* c = *iter;
 				if (c->x == w->src->x && c->y == w->src->y){
-					vorWalls.erase(c);
+					iter = vorCorners.erase(iter);
 					cornerExist = true;
 				}
 				else if (c->x == w->dst->x && c->y == w->dst->y){
-					vorWalls.erase(c);
+					iter = vorCorners.erase(iter);
 					cornerExist = true;
 				}	
 				++iter;

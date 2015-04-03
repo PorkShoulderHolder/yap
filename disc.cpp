@@ -409,7 +409,6 @@ void run()
 	t.start();
 
 
-printf("%s\n","get" );
 	genEmptyTree();
 
 	noPath = false;	// Confusing use of "noPath"

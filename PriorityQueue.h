@@ -49,8 +49,8 @@ public:
 		float secondMinDist = 10000000;
 		
 		
-		printf("%s\n","hui" );
-
+		printf("%s\n", a->closestCorners);
+		
 
 		//continue here~!!!!!
 		
