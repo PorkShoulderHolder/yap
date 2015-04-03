@@ -530,6 +530,235 @@ eg300: disc
 		&
 
 #=================================================
+# GROUP 2 EXAMPLES
+#=================================================
+timing:
+	./batchTiming.sh
+
+eg900: disc
+	./disc $(interactive) 450 500 450 20 \
+		3 11 input2.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg901: disc
+	./disc $(interactive) 250 300 450 20 \
+		3 11 input2.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg902: disc
+	./disc $(interactive) 125 200 450 20 \
+		3 11 input2.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg903: disc
+	./disc $(interactive) 125 210 450 20 \
+		3 50 input2.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg904: disc
+	./disc $(interactive) 375 350  425 100 \
+		1 5 hsu-latombe-kurniawati.txt \
+		$(boxWidth) $(boxHt) $(windowPosX) $(windowPosY) \
+		1 $(seed)  $(inputDir) \
+		-70 -70 0.065 \
+		&
+
+eg905: disc
+	./disc $(interactive) 100 350  425 100 \
+		1 5 hsu-latombe-kurniawati.txt \
+		$(boxWidth) $(boxHt) $(windowPosX) $(windowPosY) \
+		1 $(seed)  $(inputDir) \
+		-70 -70 0.065 \
+		&
+
+eg906: disc
+	./disc $(interactive) 100 350  425 100 \
+		1 10 hsu-latombe-kurniawati.txt \
+		$(boxWidth) $(boxHt) $(windowPosX) $(windowPosY) \
+		1 $(seed)  $(inputDir) \
+		-70 -70 0.065 \
+		&
+
+eg907: disc
+	./disc $(interactive) 20 20 375 370 \
+		2 5 input100.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg908: disc
+	./disc $(interactive) 20 20 375 370 \
+		2 5 input150.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg909: disc
+	./disc $(interactive) 20 20 385 380 \
+		2 5 input200.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg910: disc
+	./disc $(interactive) 20 20 375 390 \
+		2 5 input300.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg911: disc
+	./disc $(interactive) 20 20 20 250 \
+		2 5 input300.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg912: disc
+	./disc $(interactive) 350 20 250 200 \
+		2 5 input300.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg913: disc
+	./disc $(interactive) 350 20 250 200 \
+		2 8 input300.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg914: disc
+	./disc $(interactive) 20 500 350 350 \
+		2 8 bugtrap.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg915: disc
+	./disc $(interactive) 75 250 150 250 \
+		2 8 bugtrap.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg916: disc
+	./disc $(interactive) 20 500 175 125 \
+		2 8 bugtrap2.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg917: disc
+	./disc $(interactive) 20 500 375 125 \
+		2 8 bugtrap2.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg918: disc
+	./disc $(interactive) 20 500 300 105 \
+		2 8 input4.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+eg919: disc
+	./disc $(interactive) 20 250 450 250 \
+		2 8 input3.txt \
+		512 512 $(windowPosX) $(windowPosY) \
+		1 1111 $(inputDir) \
+		$(xtrans) $(ytrans) $(scale) \
+		&
+
+helptime:
+	@echo "Target eg900: Straight Shot. Obstacles are present"
+	@echo "but do not interfere with the path.  Uses input2.txt."
+	@echo ""
+	@echo "Target eg901: Behind Bars. The robot starting position"
+	@echo "is inside an obstacle.  No Path.  Uses input2.txt."
+	@echo ""
+	@echo "Target eg902: The Straits. The robot starting position"
+	@echo "is between two obstacles. Uses input2.txt."
+	@echo ""
+	@echo "Target eg903: Too Large. The robot starting position"
+	@echo "is between two obstacles, but is too large to go through"
+	@echo "only path is around. Uses input2.txt."
+	@echo ""
+	@echo "Target eg904: Same Half. The robot starting position"
+	@echo "is on the 'correct' side of the space. Should go right to goal"
+	@echo "Uses hsu-latombe-kurniawati.txt."
+	@echo ""
+	@echo "Target eg905: Different Half. The robot needs to go through the "
+	@echo "small channel. Uses hsu-latombe-kurniawati.txt."
+	@echo ""
+	@echo "Target eg906: No Channel. The robot needs to go through the "
+	@echo "small channel, but is too large. No Path.  Uses hsu-latombe-kurniawati.txt."
+	@echo ""
+	@echo "Target eg907: 100 Triangle Path.  Navigate through 100 triangles "
+	@echo "Uses input100.txt."
+	@echo ""
+	@echo "Target eg908: 150 Triangle Path.  Navigate through 150 triangles "
+	@echo "Uses input150.txt."
+	@echo ""
+	@echo "Target eg909: 200 Triangle Path.  Navigate through 200 triangles"
+	@echo "Uses input200.txt"
+	@echo ""
+	@echo "Target eg910: 300 Triangle Path.  Navigate through 300 triangles"
+	@echo "No Path. Uses input300.txt"
+	@echo ""
+	@echo "Target eg911: 300 Side Path. Navigates along the side"
+	@echo "Uses input300.txt"
+	@echo ""
+	@echo "Target eg912: Heart of Triangle Land. Navigates the middle "
+	@echo "Uses input300.txt"
+	@echo ""
+	@echo "Target eg913: Too Big for Triangle Land. Navigates the middle, "
+	@echo "with a larger robot.  No Path.  Uses input300.txt"
+	@echo ""
+	@echo "Target eg914: Bug Trap. Works into the bug trap "
+	@echo "Uses bugtrap.txt"
+	@echo ""
+	@echo "Target eg915: So Close So Far. Start and Goal are close, but "
+	@echo "the bug trap lies bewteen them.  Uses bugtrap.txt"
+	@echo ""
+	@echo "Target eg916: Double Trap. Naviagtes through 2 bug traps. "
+	@echo "Uses bugtrap2.txt"
+	@echo ""
+	@echo "Target eg917: Two Traps Avoid One. Should only go in one trap"
+	@echo "Uses bugtrap2.txt"
+	@echo ""
+	@echo "Target eg918: Avoid the Minotaur. Runs the maze."
+	@echo "Uses input4.txt."
+	@echo ""
+	@echo "Target eg919: Triangle Avoidance. Naviagate a simple triangle path."
+	@echo "Uses input3.txt"
+#=================================================
+#=================================================
 # Demos (from Talk at RCV 2013 in Berlin RSS Conference)
 #=================================================
 # Demo1 is same as "eg" (to illustrate the classification, and different strategies)

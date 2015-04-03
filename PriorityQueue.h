@@ -67,7 +67,7 @@ public:
 
 		float aFeatureDiff = a->featureNumber;
 		float bFeatureDiff = b->featureNumber;
-		
+
 		float avgFeatureDiff = (aFeatureDiff + bFeatureDiff)/2;
 
 		aFeatureDiff /= avgFeatureDiff;
@@ -76,6 +76,7 @@ public:
 		// if (a->featureNumber <= 1) aFeatureDiff = 10000;
 		// if (b->featureNumber <= 1) bFeatureDiff = 10000;
 
+		
 		double weight = blend;
 		double aScore = weight * aDist + (1 - weight) * aFeatureDiff;
 		double bScore = weight * bDist + (1 - weight) * bFeatureDiff;
