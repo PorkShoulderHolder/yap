@@ -189,17 +189,17 @@ public:
 	void updateClosestWalls(){
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
-		list<Wall*> sortedWalls; 
+		list<Wall> sortedWalls; 
 		for (list<Wall*>::iterator it = vorWalls.begin(); it != vorWalls.end(); )
 		{	
 			Wall* wall = *it;
 			float d = wall->distance(x, y);
 			if(d < minDist){
 				minDist = d;
-				sortedWalls.push_front(wall);
+				sortedWalls.push_front(*wall);
 			}
 			else if(d < secondMinDist){
-				sortedWalls.push_back(wall);
+				sortedWalls.push_back(*wall);
 			}
 		}
 	};
@@ -207,20 +207,19 @@ public:
 	void updateClosestCorners(){
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
-		list<Corner*> sortedCorners; 
+		list<Corner> sortedCorners; 
 		for (list<Corner*>::iterator it = vorCorners.begin(); it != vorCorners.end(); )
 		{	
 			Corner* corner = *it;
-			float d = corner->distance(a->x, a->y);
+			float d = corner->distance(x, y);
 			if(d < minDist){
 				minDist = d;
-				sortedCorners.push(corner);
+				sortedCorners.push_front(*corner);
 			}
 			else if(d < secondMinDist){
-				sortedCorners.push_back(corner);
+				sortedCorners.push_back(*corner);
 			}
 		}
-		return sortedCorners;
 	};
 	void updateStatus()
 	{
@@ -230,6 +229,8 @@ public:
 		}
 
 		updateVorFeatures();
+		updateClosestCorners();
+		updateClosestWalls();
 		setFeatureNumber();
 		printf("%i\n", featureNumber);
 		double outerDomain = r0 + rB; //ORIG

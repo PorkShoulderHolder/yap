@@ -34,7 +34,7 @@ double Wall::distance(double x, double y)
 	return sqrt( (x-x0)*(x-x0) + (y-y0)*(y-y0) );
 }
 
-Corner Wall::closest(double x, double y)
+Corner* Wall::closest(double x, double y)
 {
 	double x1 = src->x;
 	double x2 = dst->x;
@@ -47,7 +47,7 @@ Corner Wall::closest(double x, double y)
 	Corner *corner;
 	corner->x = u*x2 + (1-u)*x1;
 	corner->y = u*y2 + (1-u)*y1;
-	return 
+	return corner;
 }
 
 bool Wall::isRight(double x, double y)

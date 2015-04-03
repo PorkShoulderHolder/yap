@@ -52,17 +52,7 @@ public:
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
 		
-		a.updateClosestWalls();
-		list<Wall*> aClosestWalls = a->closestWalls;
-
-		b.updateClosestWalls();
-		list<Wall*> bClosestWalls = b->closestWalls;
 		
-		a.updateClosestCorners();
-		list<Corner*> aClosestCorners = a->getClosestCorners;
-		
-		b.updateClosestCorners();
-		list<Corner*> bClosestCorners = b->getClosestCorners;
 
 
 		//continue here~!!!!!
