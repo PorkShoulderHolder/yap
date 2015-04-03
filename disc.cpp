@@ -45,7 +45,6 @@
  ************************************** */
 
 #include "QuadTree.h"
-#include "PriorityQueue.h"
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
@@ -353,6 +352,7 @@ int main(int argc, char* argv[])
 	//cout<<"before run\n";
 		// PERFORM THE INITIAL RUN OF THE ALGORITHM
 		//==========================================
+
 		run(); 	// make it do something interesting from the start!!!
 
 		// SHOULD WE STOP or GO INTERACTIVE?
@@ -408,6 +408,8 @@ void run()
 	// start timer
 	t.start();
 
+
+printf("%s\n","get" );
 	genEmptyTree();
 
 	noPath = false;	// Confusing use of "noPath"
@@ -415,6 +417,7 @@ void run()
 
 	if (QType == 0 || QType == 1)
 	{
+
 		boxA = QT->getBox(alpha[0], alpha[1]);
 		while (boxA && !boxA->isFree())
 		{

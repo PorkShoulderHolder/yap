@@ -14,10 +14,6 @@ using namespace std;
 extern double beta[2];
 extern double blend;
 
-bool distCompare(Corner* a, Corner* b){
-
-}
-
 class PQCmp
 {
 public:
@@ -53,10 +49,11 @@ public:
 		float secondMinDist = 10000000;
 		
 		
+		printf("%s\n","hui" );
 
 
 		//continue here~!!!!!
-
+		
 
 
 

@@ -30,10 +30,6 @@ public:
 	
 	BoxIter(const Box* bb, int direc);
 
-	list<Wall*> closestWalls;
-
-	list<Corner*> closestCorners;
-
 	Box* First();
 
 	Box* Next();
@@ -74,6 +70,9 @@ public:
 	// where
 	//	0 = NW, 1 = EN, 2 = SE, 3 = WS
 	Box* pChildren[4]; 
+
+	list<Wall*> closestWalls;
+	list<Corner*> closestCorners;
 
 	Box* pParent; //parent in quadtree
 	enum Status { FREE, STUCK, MIXED, UNKNOWN };
@@ -163,7 +162,7 @@ public:
 		//sets the number of unique Voroni features
 		featureNumber = vorCorners.size();
 		//featureNumber = featureNumber + vorWalls.size();
-
+		printf("%s\n","fn1" );
 		for (list<Wall*>::iterator it = vorWalls.begin(); it != vorWalls.end(); )
 		{
 			Wall* w = *it;
@@ -171,11 +170,11 @@ public:
 			for (list<Corner*>::iterator iter = vorCorners.begin(); iter != vorCorners.end(); ) {
 				Corner* c = *iter;
 				if (c->x == w->src->x && c->y == w->src->y){
-					vorWalls.erase(it);
+					vorWalls.erase(c);
 					cornerExist = true;
 				}
 				else if (c->x == w->dst->x && c->y == w->dst->y){
-					vorWalls.erase(it);
+					vorWalls.erase(c);
 					cornerExist = true;
 				}	
 				++iter;
@@ -189,36 +188,39 @@ public:
 	void updateClosestWalls(){
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
-		list<Wall> sortedWalls; 
+		closestWalls.clear();
 		for (list<Wall*>::iterator it = vorWalls.begin(); it != vorWalls.end(); )
 		{	
 			Wall* wall = *it;
 			float d = wall->distance(x, y);
 			if(d < minDist){
 				minDist = d;
-				sortedWalls.push_front(*wall);
+				closestWalls.push_front(wall);
 			}
 			else if(d < secondMinDist){
-				sortedWalls.push_back(*wall);
+				closestWalls.push_back(wall);
 			}
+			++it;
 		}
 	};
 
 	void updateClosestCorners(){
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
-		list<Corner> sortedCorners; 
+		closestCorners.clear(); 
+
 		for (list<Corner*>::iterator it = vorCorners.begin(); it != vorCorners.end(); )
 		{	
 			Corner* corner = *it;
 			float d = corner->distance(x, y);
 			if(d < minDist){
 				minDist = d;
-				sortedCorners.push_front(*corner);
+				closestCorners.push_front(corner);
 			}
 			else if(d < secondMinDist){
-				sortedCorners.push_back(*corner);
+				closestCorners.push_back(corner);
 			}
+			++it;
 		}
 	};
 	void updateStatus()
@@ -227,11 +229,12 @@ public:
 		{
 			return;
 		}
-
+		
 		updateVorFeatures();
 		updateClosestCorners();
 		updateClosestWalls();
 		setFeatureNumber();
+	
 		printf("%i\n", featureNumber);
 		double outerDomain = r0 + rB; //ORIG
 		double innerDomain = r0 > rB ? r0 - rB : 0;
