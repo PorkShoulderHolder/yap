@@ -30,6 +30,10 @@ public:
 	
 	BoxIter(const Box* bb, int direc);
 
+	list<Wall*> closestWalls;
+
+	list<Corner*> closestCorners;
+
 	Box* First();
 
 	Box* Next();
@@ -106,7 +110,6 @@ public:
 
 	//added by Group 2
 	
-	void getClosestPoints():
 	void setClearance() {
 		clearance = 100000;
 		double tempClearance; 
@@ -168,11 +171,11 @@ public:
 			for (list<Corner*>::iterator iter = vorCorners.begin(); iter != vorCorners.end(); ) {
 				Corner* c = *iter;
 				if (c->x == w->src->x && c->y == w->src->y){
-					vorWalls.erase(w);
+					vorWalls.erase(it);
 					cornerExist = true;
 				}
 				else if (c->x == w->dst->x && c->y == w->dst->y){
-					vorWalls.erase(w);
+					vorWalls.erase(it);
 					cornerExist = true;
 				}	
 				++iter;
@@ -183,33 +186,32 @@ public:
 			++it;
 		} 
 	}
-	list<Wall> getClosestWalls(){
+	void updateClosestWalls(){
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
 		list<Wall*> sortedWalls; 
 		for (list<Wall*>::iterator it = vorWalls.begin(); it != vorWalls.end(); )
 		{	
 			Wall* wall = *it;
-			float d = wall.distance(x, y);
+			float d = wall->distance(x, y);
 			if(d < minDist){
 				minDist = d;
-				sortedWalls.push(wall);
+				sortedWalls.push_front(wall);
 			}
 			else if(d < secondMinDist){
 				sortedWalls.push_back(wall);
 			}
 		}
-		return sortedWalls;
 	};
 
-	list<*Corner> getClosestCorners(){
+	void updateClosestCorners(){
 		float minDist = 10000000;
 		float secondMinDist = 10000000;
 		list<Corner*> sortedCorners; 
 		for (list<Corner*>::iterator it = vorCorners.begin(); it != vorCorners.end(); )
 		{	
 			Corner* corner = *it;
-			float d = corner.distance(a->x, a->y);
+			float d = corner->distance(a->x, a->y);
 			if(d < minDist){
 				minDist = d;
 				sortedCorners.push(corner);
